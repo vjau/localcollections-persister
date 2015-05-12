@@ -1,8 +1,11 @@
-#LocalCollections-SessionPersister
+LocalCollections-SessionPersister
+=================================
 
 A meteor package that allow local (unmanaged) Collections to persist between hot codes pushes, like Session or Reactive-dict.
 
-##Installation
+Installation
+------------
+
 For whole app availability : 
 
 	meteor add vjau:localcollections-persister
@@ -13,9 +16,10 @@ or require it in your packages with the usual line in your package.js :
 
 Since hot code pushes only make sense in the browser, it's only available on the client.
 
-##Usage
+Usage
+-----
 
-###Getting the factory
+### Getting the factory
 The package export a single constructor, LocalCollectionsPersister.
 Calling the constructor with new create a factory/manager  which create the collections for the user and manage their migration during hot code pushes.
 The factory/manager is a singleton so calling the constructor multiples times always gives the same object.
@@ -25,7 +29,7 @@ The factory/manager is a singleton so calling the constructor multiples times al
 	console.log(factory1===factory2);
 	// true
 
-###Creating the Collections
+### Creating the Collections
 For the Local Collections to be created, you have to create them through the factory with the createCollection(name) method.
 
 	var factory = new LocalCollectionsPersister();
@@ -41,7 +45,7 @@ Contrary to a reactive-dict, creating two collections with the same name gives y
 	console.log(fooColl1===fooColl2);
 	// true
 
-###Enjoying hot codes pushes persistence
+### Enjoying hot codes pushes persistence
 That's the easy part ;)
 
 	var factory = new LocalCollectionsPersister();
@@ -52,7 +56,9 @@ That's the easy part ;)
 	// {a:1}
 	// it works !
 
-##Why this package ?
+Why this package ?
+------------------
+
 Preservation of session state between hot code pushes is a nice feature of Meteor, however Session (==global) is only for small (toy) projects. Reactive-dict is a nice replacement but with it, transparent reactivity only works with the simplest scenarios, ie with single key/primitives.
 
 
@@ -72,6 +78,7 @@ As explained on minimongo's "why" :
 
 To store your objects that are not yet ready to be written in the "real" database, what better solution than to store them in a temporary client side database that will only persist during the session. That way, you can access them however you want, with lookup, filtering, sorting.... all transparently reactive with the power of meteor mongo reactivity.
 
-##What this package is not ?
+What this package is not ?
+--------------------------
 This package persist only the collections for the duration of the session. For full (real)  client side persistence, that persist between browser runs (and manual reload), you can try the more ambitious (but probably overkill to just store session state) [GroundDB](https://github.com/GroundMeteor/db)  package.
 
