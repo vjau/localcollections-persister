@@ -5,11 +5,15 @@ A meteor package that allow local (unmanaged) Collections to persist between hot
 ##Installation
 For whole app availability : 
 
-	meteor add vjau:localcollections-persister
+```js
+meteor add vjau:localcollections-persister
+```
 
 or require it in your packages with the usual line in your package.js :
 
-	use('vjau:localcollections-persister','client');
+```js
+use('vjau:localcollections-persister','client');
+```
 
 Since hot code pushes only make sense in the browser, it's only available on the client.
 
@@ -20,48 +24,56 @@ The package export a single constructor, LocalCollectionsPersister.
 Calling the constructor with new create a factory/manager  which create the collections for the user and manage their migration during hot code pushes.
 The factory/manager is a singleton so calling the constructor multiples times always gives the same object.
 
-	var factory1 = new LocalCollectionsPersister();
-	var factory2 = new LocalCollectionsPersister();
-	console.log(factory1===factory2);
-	// true
+```js
+var factory1 = new LocalCollectionsPersister();
+var factory2 = new LocalCollectionsPersister();
+console.log(factory1===factory2);
+// true
+```
 
 ###Creating the Collections
 For the Local Collections to be created, you have to create them through the factory with the createCollection(name) method.
 
-	var factory = new LocalCollectionsPersister();
-	var fooColl = factory.createCollection("foo");
-	console.log(fooColl instanceOf Mongo.Collection);
-	// true
-
+```js
+var factory = new LocalCollectionsPersister();
+var fooColl = factory.createCollection("foo");
+console.log(fooColl instanceOf Mongo.Collection);
+// true
+```
 Contrary to a reactive-dict, creating two collections with the same name gives you one unique collection. This is useful to get a grip on a collection instance programmaticaly, and also mandatory for the package to work.
 
-	var factory = new LocalCollectionsPersister();
-	var fooColl1 = factory.createCollection("foo");
-	var fooColl2 = factory.createCollection("foo");
-	console.log(fooColl1===fooColl2);
-	// true
+```js
+var factory = new LocalCollectionsPersister();
+var fooColl1 = factory.createCollection("foo");
+var fooColl2 = factory.createCollection("foo");
+console.log(fooColl1===fooColl2);
+// true
+```
 
 ###Enjoying hot codes pushes persistence
 That's the easy part ;)
 
-	var factory = new LocalCollectionsPersister();
-	var fooColl = factory.createCollection("foo");
-	fooColl.insert({a:1});
-	// after a hot code push to your unsuspecting users
-	fooColl.findOne({});
-	// {a:1}
-	// it works !
+```js
+var factory = new LocalCollectionsPersister();
+var fooColl = factory.createCollection("foo");
+fooColl.insert({a:1});
+// after a hot code push to your unsuspecting users
+fooColl.findOne({});
+// {a:1}
+// it works !
+```
 
 ##Why this package ?
 Preservation of session state between hot code pushes is a nice feature of Meteor, however Session (==global) is only for small (toy) projects. Reactive-dict is a nice replacement but with it, transparent reactivity only works with the simplest scenarios, ie with single key/primitives.
 
-
-	var rd = new ReactiveDict("foo");
-	rd.set("simpleFlag", true);
-	var isFlagOn = function(){
-		return rd.get("simpleFlag");
-	}
-	// isFlagOn is a reactive dataSource
+```js
+var rd = new ReactiveDict("foo");
+rd.set("simpleFlag", true);
+var isFlagOn = function(){
+	return rd.get("simpleFlag");
+}
+// isFlagOn is a reactive dataSource
+```
 
 When you need a collection of some sort, reactive-dict doesn't make the trick.
 There are a few alternatives like Reactive-Array which is cool, but doesn't support hot code pushes. When you want to do some filtering on your arrays, or editing of your objects in place,  reactivity doesn't work anymore.
