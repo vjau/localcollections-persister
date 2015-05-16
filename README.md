@@ -70,7 +70,7 @@ As explained on minimongo's "why" :
 >	Pretty soon you've invented your own database API for working with the data.
 >	This homebrew database API ends up trying to do the same thing as any other database API, but it does it poorly, because you're not a database API designer
 
-To store your objects that are not yet ready to be written in the "real" database, what better solution than to store them in a temporary client side database that will only persist during the session. That way, you can access them however you want, with lookup, filtering, sorting.... all transparently reactive with the power of meteor mongo reactivity.
+To store your objects that are not yet ready to be written in the "real" database, what better solution than to store them in a temporary client side database that will only persist during the session ? That way, you can access them however you want, with lookup, filtering, sorting.... all transparently reactive with the power of meteor mongo reactivity.
 
 ##What this package is not ?
 This package persist only the collections for the duration of the session. For full (real)  client side persistence, that persist between browser runs (and manual reload), you can try the more ambitious (but probably overkill to just store session state) [GroundDB](https://github.com/GroundMeteor/db)  package.
