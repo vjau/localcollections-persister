@@ -1,4 +1,4 @@
-#LocalCollections-SessionPersister
+#LocalCollections-Persister
 
 A meteor package that allow local (unmanaged) Collections to persist between hot codes pushes, like Session or Reactive-dict.
 
