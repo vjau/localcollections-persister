@@ -1,4 +1,3 @@
-
 #LocalCollections-Persister
 
 A meteor package that allow local (unmanaged) Collections to persist between hot codes pushes, like Session or Reactive-dict.
@@ -57,30 +56,6 @@ console.log(fooColl1===fooColl2);
 ### Enjoying hot codes pushes persistence
 That's the easy part ;)
 
-	var factory = new LocalCollectionsPersister();
-	var fooColl = factory.createCollection("foo");
-	fooColl.insert({a:1});
-	// after a hot code push to your unsuspecting users
-	fooColl.findOne({});
-	// {a:1}
-	// it works !
-	
-
-Options
--------
-You can pass the usual options accepted by the Mongo.Collection constructor. Please keep in mind that LocalCollection can't have a connection.
-
-	var factory = new LocalCollectionsPersister();
-	var transform = function(doc){
-	  doc.getFoo = function(){
-	    return "foo";
-	  };
-	};
-	var fooColl = factory.createCollection("foo", {transform : transform});
-
-Why this package ?
-------------------
-=======
 ```js
 var factory = new LocalCollectionsPersister();
 var fooColl = factory.createCollection("foo");
@@ -90,6 +65,24 @@ fooColl.findOne({});
 // {a:1}
 // it works !
 ```
+	
+
+Options
+-------
+You can pass the usual options accepted by the Mongo.Collection constructor. Please keep in mind that LocalCollection can't have a connection.
+
+```js
+var factory = new LocalCollectionsPersister();
+var transform = function(doc){
+  doc.getFoo = function(){
+    return "foo";
+  };
+};
+var fooColl = factory.createCollection("foo", {transform : transform});
+```
+
+Why this package ?
+------------------
 
 Preservation of session state between hot code pushes is a nice feature of Meteor, however Session (==global) is only for small (toy) projects. Reactive-dict is a nice replacement but with it, transparent reactivity only works with the simplest scenarios, ie with single key/primitives.
 
