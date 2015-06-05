@@ -68,7 +68,7 @@ That's the easy part ;)
 
 Options
 -------
-You can pass the usual options accepted by the Mongo.Collection constructor. Please keep in mind that LocalCollection can have a connection.
+You can pass the usual options accepted by the Mongo.Collection constructor. Please keep in mind that LocalCollection can't have a connection.
 
 	var factory = new LocalCollectionsPersister();
 	var transform = function(doc){
