@@ -1,7 +1,4 @@
-<<<<<<< HEAD
-LocalCollections-SessionPersister
-=================================
-=======
+
 #LocalCollections-Persister
 
 A meteor package that allow local (unmanaged) Collections to persist between hot codes pushes, like Session or Reactive-dict.
@@ -93,7 +90,6 @@ fooColl.findOne({});
 // {a:1}
 // it works !
 ```
->>>>>>> f535ab535ff682d01344c2fdc98722aadc7b66d6
 
 Preservation of session state between hot code pushes is a nice feature of Meteor, however Session (==global) is only for small (toy) projects. Reactive-dict is a nice replacement but with it, transparent reactivity only works with the simplest scenarios, ie with single key/primitives.
 
