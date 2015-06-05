@@ -20,24 +20,26 @@ LocalCollectionsPersister = function(){
 /**
  *
  * @param name {string}
+ * @param options {{idGeneration:string, transform:function(Object)}}
  * @returns {Mongo.Collection}
  */
-LocalCollectionsPersister.prototype.createCollection = function(name){
+LocalCollectionsPersister.prototype.createCollection = function(name, options){
   "use strict";
   if (this._collections[name]){
     return this._collections[name];
   }
+
   /**
    *
    * @type {Mongo.Collection}
    */
-  var coll = new Mongo.Collection(null);
+  var coll = new Mongo.Collection(null, options);
   var collsToRestore = Reload._migrationData('localcollections-persister') && Reload._migrationData('localcollections-persister').collections;
   var objectsToRestore = collsToRestore && collsToRestore[name];
   if (Array.isArray(objectsToRestore)){
     objectsToRestore.forEach(function(obj){
       coll.insert(obj);
-    });
+    }, this);
   }
   /**
    * @dict

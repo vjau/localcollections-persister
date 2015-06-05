@@ -30,7 +30,7 @@ The factory/manager is a singleton so calling the constructor multiples times al
 	// true
 
 ### Creating the Collections
-For the Local Collections to be created, you have to create them through the factory with the createCollection(name) method.
+For the Local Collections to be created, you have to create them through the factory with the createCollection(name, options) method.
 
 	var factory = new LocalCollectionsPersister();
 	var fooColl = factory.createCollection("foo");
@@ -55,6 +55,19 @@ That's the easy part ;)
 	fooColl.findOne({});
 	// {a:1}
 	// it works !
+	
+
+Options
+-------
+You can pass the usual options accepted by the Mongo.Collection constructor. Please keep in mind that LocalCollection can have a connection.
+
+	var factory = new LocalCollectionsPersister();
+	var transform = function(doc){
+	  doc.getFoo = function(){
+	    return "foo";
+	  };
+	};
+	var fooColl = factory.createCollection("foo", {transform : transform});
 
 Why this package ?
 ------------------
