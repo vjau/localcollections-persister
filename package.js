@@ -18,5 +18,6 @@ Package.onUse(function(api) {
 Package.onTest(function(api) {
   api.use('tinytest');
   api.use('vjau:localcollections-persister');
+  api.use('mongo');
   api.addFiles('localcollections-persister-tests.js','client');
 });
